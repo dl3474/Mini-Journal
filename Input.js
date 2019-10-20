@@ -2,7 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { addNote, setNote } from './Actions';
+import { addNote, setNote, setImage } from './Actions';
+import Image from './imagePicker'
 
 
 const styles = StyleSheet.create( {
@@ -44,7 +45,7 @@ const styles = StyleSheet.create( {
 class Input extends React.Component {
 
   render() {
-    // console.log('STATE\n\n', this.props);
+     console.log('STATE\n\n', this.props);
     // const {addNote, setNote, note,} = this.props;
     return (
       <View style={styles.container}>
@@ -54,12 +55,8 @@ class Input extends React.Component {
             value={this.props.friends.note}
             placeholder="Note"
         />
-        {/* <TextInput 
-            style={styles.input}
-            onChangeText={text => this.setState({location: text})} 
-            value={this.state.location}          
-            placeholder="Location (Optional)"
-        /> */}
+        <Image/>
+
         <Button 
             style={styles.button}
             title="Add Todo"
@@ -81,7 +78,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
       addNote,
-      setNote
+      setNote, 
+      setImage
     }, dispatch)
   );
   

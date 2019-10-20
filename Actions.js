@@ -13,4 +13,10 @@ const setNote = updateNote => (
     }
 )
 
-export { addNote, setNote }
+const setImage = image => (
+    {
+        type: types.SET_IMAGE,
+        setImage: image
+    }
+)
+export { addNote, setNote, setImage }

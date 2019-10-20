@@ -3,15 +3,9 @@ import { createStackNavigator } from 'react-navigation-stack'
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 
 import Home from './Home';
-import Input from './Input'
+import Input from './Input';
 
 
-/*
-const AppNavigator = createStackNavigator({
-  Input: {screen: Input},
-  Home: { screen: Home },
-
-});*/
 
 
 const AppNavigator = createMaterialTopTabNavigator(

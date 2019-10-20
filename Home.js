@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, FlatList, SectionList } from 'react-native';
+import { StyleSheet, Text, View, Button, Image, FlatList, SectionList } from 'react-native';
 import { connect } from 'react-redux';
 
 
@@ -14,7 +14,12 @@ class Home extends React.Component {
         <Text>Testing!</Text>
         <SectionList
           sections={this.props.friends.notes}
-          renderItem={({ item }) => <Text>{item.time}----{item.note}</Text>}
+          renderItem={({ item }) =>          
+           (<View>
+            <Text>{item.time}----{item.note}</Text>
+            <Image source={{ uri: item.image }} style={{ width: 200, height: 200 }} />
+          </View>
+            )}
           renderSectionHeader={({ section: { title } }) => (
             <Text style={styles.header}>{title}</Text>
           )}
