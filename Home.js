@@ -1,19 +1,26 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, FlatList, SectionList } from 'react-native';
 import { connect } from 'react-redux';
 
+
 class Home extends React.Component {
+
   render() {
+    //let arrayOfNotes = Object.keys(this.props.friends.notes).map(key => this.props.friends.notes[key])
+
     return (
       
       <View style={styles.container}>
-        <Text>Testing</Text>
-        <Button
-          title="Input!"
-          onPress={() =>
-            this.props.navigation.navigate('Input')
-          }
+        <Text>Testing!</Text>
+        <SectionList
+          sections={this.props.friends.notes}
+          renderItem={({ item }) => <Text>{item.time}----{item.note}</Text>}
+          renderSectionHeader={({ section: { title } }) => (
+            <Text style={styles.header}>{title}</Text>
+          )}
+          keyExtractor={(item, index) => index.toString()}
         />
+
       </View>
     );
   }

@@ -3,7 +3,18 @@ import types from './Types'
 
 const INITIAL_STATE = {
   note: '',
-  notes: [],
+  notes: [
+    {
+      title: "10/1/19",
+      data: [ {time: 'time', note: 'note!'}, {time: 'time2', note: 'note2!'}, ]
+      
+    },
+    {
+      title: "10/2/19",
+      data: [ {time: 'time3', note: 'note3!'}, {time: 'time4', note: 'note4!'}, ]
+      
+    },
+  ],
 };
 
 const friendReducer = (state = INITIAL_STATE, action) => {
@@ -11,8 +22,14 @@ const friendReducer = (state = INITIAL_STATE, action) => {
 
     case types.ADD_NOTE:
       const notes = state.notes;
-      notes.push(state.note);
-      console.log('ADDED NOTE STATE:\t', state.note);
+      const [ date, time ] = new Date().toLocaleString("en-US").split(', ');
+      console.log('ADDED NOTE STATE:\t', state.note, date);
+
+      if (notes[notes.length - 1]["title"] != date) {
+        notes.push({title: date, data: []})
+      }
+      notes[notes.length - 1]["data"].push({time: time, note: state.note});
+      
       return { ... state, 
                 note: '',
                 notes: notes};
@@ -24,9 +41,6 @@ const friendReducer = (state = INITIAL_STATE, action) => {
         return { ... state, 
                   note: note,
                   };
-
-
-
 
 
     default:
