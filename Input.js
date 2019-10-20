@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { addNote, setNote, setImage } from './Actions';
 import Image from './imagePicker'
 import types from './Types'
+import { withNavigation } from 'react-navigation'
 
 
 const styles = StyleSheet.create( {
