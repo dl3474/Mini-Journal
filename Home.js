@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, Image, FlatList, SectionList } from 'react-native';
 import { connect } from 'react-redux';
+import types from './Types'
 
 
 class Home extends React.Component {
@@ -17,7 +18,8 @@ class Home extends React.Component {
           renderItem={({ item }) =>          
            (<View>
             <Text>{item.time}----{item.note}</Text>
-            <Image source={{ uri: item.image }} style={{ width: 200, height: 200 }} />
+            {item.image === types.EMPTY_IMAGE ? false : true &&
+            <Image source={{ uri: item.image }} style={{ width: 200, height: 200 }} />}
           </View>
             )}
           renderSectionHeader={({ section: { title } }) => (
@@ -35,8 +37,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
 

@@ -1,23 +1,22 @@
 import { combineReducers } from 'redux';
 import types from './Types'
 
-const EMPTY_IMAGE = 'empty.png';
 
 const INITIAL_STATE = {
   note: '',
   notes: [
     {
       title: "10/1/19",
-      data: [ {time: 'time', note: 'note!', image: 'image1'}, {time: 'time2', note: 'note2!', image: "2"}, ]
+      data: [ {time: 'time', note: 'note!', image: types.EMPTY_IMAGE}, {time: 'time2', note: 'note2!', image: types.EMPTY_IMAGE}, ]
       
     },
     {
       title: "10/2/19",
-      data: [ {time: 'time3', note: 'note3!', image: "3"}, {time: 'time4', note: 'note4!', image: "4"}, ]
+      data: [ {time: 'time3', note: 'note3!', image: types.EMPTY_IMAGE}, {time: 'time4', note: 'note4!', image: types.EMPTY_IMAGE}, ]
       
     },
   ],
-  image: EMPTY_IMAGE,
+  image: types.EMPTY_IMAGE,
 };
 
 const friendReducer = (state = INITIAL_STATE, action) => {
@@ -36,7 +35,7 @@ const friendReducer = (state = INITIAL_STATE, action) => {
       
       return { ... state, 
                 note: '',
-                image: EMPTY_IMAGE,
+                image: types.EMPTY_IMAGE,
                 notes: notes};
 
     case types.SET_NOTE:

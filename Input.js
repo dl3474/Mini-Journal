@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addNote, setNote, setImage } from './Actions';
 import Image from './imagePicker'
+import types from './Types'
 
 
 const styles = StyleSheet.create( {
@@ -45,7 +46,7 @@ const styles = StyleSheet.create( {
 class Input extends React.Component {
 
   render() {
-     console.log('STATE\n\n', this.props);
+    // console.log('STATE\n\n', this.props);
     // const {addNote, setNote, note,} = this.props;
     return (
       <View style={styles.container}>
@@ -61,7 +62,7 @@ class Input extends React.Component {
             style={styles.button}
             title="Add Todo"
             onPress={this.props.addNote}
-            disabled={!this.props.friends.note}
+            disabled={!this.props.friends.note && this.props.friends.image == types.EMPTY_IMAGE}
         />
       <View style={styles.spacing}/>
     </View>

@@ -4,6 +4,8 @@ import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 
 import Home from './Home';
 import Input from './Input';
+import AddConfirmation from './addConfirmation';
+
 
 
 
@@ -12,6 +14,7 @@ const AppNavigator = createMaterialTopTabNavigator(
   {
     Input: {screen: Input},
     Home: { screen: Home },
+    AddConfirmation: {screen: AddConfirmation}
   },
   {
     tabBarOptions: {

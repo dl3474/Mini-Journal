@@ -6,13 +6,13 @@ import * as Permissions from 'expo-permissions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setImage, setNote } from './Actions';
+import types from './Types';
 
 
 //setImage not in this.props
 class ImagePickerItem extends React.Component {
 
   render() {
-    const display = this.props.friends.image === 'empty.png' ? false : true
 
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -20,7 +20,7 @@ class ImagePickerItem extends React.Component {
           title="Pick an image from camera roll"
           onPress={this._pickImage}
         />
-        {display &&
+        {this.props.friends.image === types.EMPTY_IMAGE ? false : true &&
           <Image source={{ uri: this.props.friends.image }} style={{ width: 200, height: 200 }} />}
       </View>
     );
