@@ -7,14 +7,12 @@ import Input from './Input';
 import Stats from './Stats';
 
 
-
-
-
 const AppNavigator = createMaterialTopTabNavigator(
   {
     Input: {screen: Input},
     Home: { screen: Home },
-    Stats: {screen: Stats}
+    Stats: {screen: Stats},
+
   },
   {
     tabBarOptions: {
@@ -27,9 +25,6 @@ const AppNavigator = createMaterialTopTabNavigator(
   }
 );
 
-
-
-// const navigationTabs = createMaterialTopTabNavigator(tabs, {initialRouteName: 'Todos'});
 
 const NavigationContainer = createAppContainer(AppNavigator);
 

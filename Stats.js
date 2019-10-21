@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Image, FlatList, SectionList } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import { connect } from 'react-redux';
 import types from './Types'
 
@@ -10,23 +10,37 @@ class Stats extends React.Component {
     const lst = []
     const notes = this.props.friends.notes;
     for (let i = 0; i < notes.length; i++){
-      lst.push(<Text key={i}>{notes[i].title}: {notes[i].data.length}</Text>)
+      lst.push(<Text key={i} style={{margin: 5}}>{notes[i].title}: {notes[i].data.length}</Text>)
       totalNotes+= notes[i].data.length
     }
     return [lst, totalNotes];
   }
 
   render() {
-    //let arrayOfNotes = Object.keys(this.props.friends.notes).map(key => this.props.friends.notes[key])
     const [dateNotes, totalNotes] = this.calculateStats();
-    console.log(dateNotes, totalNotes)
+    // console.log(dateNotes, totalNotes)
     return (
-      
       <View style={styles.container}>
-        <Text>Days of Journaling: {this.props.friends.notes.length}!!</Text>
-        <Text>Total Notes: {totalNotes}!!</Text>
-        {dateNotes}
-
+        <View style={styles.top}>
+          <View style={styles.one}>
+            <Text>Days of Journaling:</Text>
+            <Text>{this.props.friends.notes.length}!!</Text>
+          </View>
+          <View style={styles.one}>
+            <Text>Total Notes:</Text>
+            <Text>{totalNotes}!!</Text>
+          </View>
+         
+        </View>
+        <View style={styles.bottom}>
+          <View style={styles.one}>
+            {dateNotes}
+          </View>
+          <Button
+            title="Back to Input"
+            onPress={() =>this.props.navigation.navigate('Input')}
+          />
+        </View>
       </View>
     );
   }
@@ -35,8 +49,37 @@ class Stats extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'pink',
+    
   },
+  top: {
+    flex: 1, 
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    margin: 5
+  },
+
+  line: {
+    flex: 1,
+    //backgroundColor: 'white',
+    flexDirection: 'row',
+    
+  },
+  one: {
+    flex: 1,
+    padding: 10
+
+  },
+  
+  bottom: {
+    flex: 10,
+    backgroundColor: 'white', 
+    margin: 5
+  },
+  right: {
+    flex: 1,
+    flexDirection: 'row'
+  }
 });
 
 const mapStateToProps = (state) => {

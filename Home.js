@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, Image, FlatList, SectionList } from 'react-native';
 import { connect } from 'react-redux';
+import Constants from 'expo-constants';
 import types from './Types'
 
 
@@ -12,15 +13,20 @@ class Home extends React.Component {
     return (
       
       <View style={styles.container}>
-        <Text>Testing!</Text>
         <SectionList
           sections={this.props.friends.notes}
           renderItem={({ item }) =>          
-           (<View>
-            <Text>{item.time}----{item.note}</Text>
-            {item.image === types.EMPTY_IMAGE ? false : true &&
-            <Image source={{ uri: item.image }} style={{ width: 200, height: 200 }} />}
-          </View>
+           (
+           <View style={styles.item}>
+              <Text>Time: {item.time}</Text>
+
+              {item.note === '' ? false : true && 
+                <Text>Note: {item.note}</Text> }
+
+              {item.image === types.EMPTY_IMAGE ? false : true &&
+                <Image source={{ uri: item.image }} style={{ width: 200, height: 200 }} />}
+
+            </View>
             )}
           renderSectionHeader={({ section: { title } }) => (
             <Text style={styles.header}>{title}</Text>
@@ -33,12 +39,25 @@ class Home extends React.Component {
   }
 }
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    marginHorizontal: 16,
+  },
+  item: {
+    backgroundColor: 'pink',
+    padding: 20,
+    marginVertical: 8,
+  },
+  header: {
+    fontSize: 20,
+  },
+  title: {
+    fontSize: 24,
   },
 });
+
 
 const mapStateToProps = (state) => {
   const { friends } = state

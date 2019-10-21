@@ -9,19 +9,21 @@ import { setImage, setNote } from './Actions';
 import types from './Types';
 
 
-//setImage not in this.props
 class ImagePickerItem extends React.Component {
 
   render() {
 
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={{justifyContent: 'center', alignContent: 'center' }}>
+          
+        {this.props.friends.image === types.EMPTY_IMAGE ? false : true &&
+          <Image source={{ uri: this.props.friends.image }} style={{ width: 200, height: 200}} />}
+
         <Button
-          title="Pick an image from camera roll"
+          style={{margin: 20}}
+          title="Upload an image!"
           onPress={this._pickImage}
         />
-        {this.props.friends.image === types.EMPTY_IMAGE ? false : true &&
-          <Image source={{ uri: this.props.friends.image }} style={{ width: 200, height: 200 }} />}
       </View>
     );
   }
@@ -48,15 +50,11 @@ class ImagePickerItem extends React.Component {
           
       
           if (!result.cancelled) {
-            console.log("result.uri", result.uri)
+            // console.log("result.uri", result.uri)
             this.props.setImage(result.uri)
-            console.log("result\n\n", this.props.friends.image);
+            // console.log("result\n\n", this.props.friends.image);
           }
-
-
     };
-
-
   };
 }
 

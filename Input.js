@@ -25,21 +25,17 @@ const styles = StyleSheet.create( {
 
   },
 
-  inputRow: {
-      flexDirection: 'row',
-      padding: 5
-  },
-
-  todos: {
-      flexDirection: 'column', 
-  },
-
   button: {
-      flex: 1
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 10,
   },
 
   spacing: {
-      flex: 10
+      flex: 10, 
+      padding: 20,
+      justifyContent: 'center', 
+      alignContent: 'center'
   }
 
 })
@@ -51,20 +47,29 @@ class Input extends React.Component {
     // const {addNote, setNote, note,} = this.props;
     return (
       <View style={styles.container}>
+        
         <TextInput 
             style={styles.input} 
             onChangeText={this.props.setNote} 
             value={this.props.friends.note}
             placeholder="Note"
         />
-        <Image/>
 
-        <Button 
-            style={styles.button}
-            title="Add Todo"
-            onPress={this.props.addNote}
-            disabled={!this.props.friends.note && this.props.friends.image == types.EMPTY_IMAGE}
-        />
+        <View>
+
+          <Image/>
+              
+          <View style={styles.button}>
+            <Button 
+                title="Add Todo"
+                onPress={this.props.addNote}
+                disabled={!this.props.friends.note && this.props.friends.image == types.EMPTY_IMAGE}
+            />
+          </View>
+          
+
+        </View>
+
       <View style={styles.spacing}/>
     </View>
     );
