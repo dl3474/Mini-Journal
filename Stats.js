@@ -18,7 +18,6 @@ class Stats extends React.Component {
 
   render() {
     const [dateNotes, totalNotes] = this.calculateStats();
-    // console.log(dateNotes, totalNotes)
     return (
       <View style={styles.container}>
         <View style={styles.top}>
@@ -59,12 +58,6 @@ const styles = StyleSheet.create({
     margin: 5
   },
 
-  line: {
-    flex: 1,
-    //backgroundColor: 'white',
-    flexDirection: 'row',
-    
-  },
   one: {
     flex: 1,
     padding: 10
@@ -76,10 +69,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white', 
     margin: 5
   },
-  right: {
-    flex: 1,
-    flexDirection: 'row'
-  }
+
 });
 
 const mapStateToProps = (state) => {

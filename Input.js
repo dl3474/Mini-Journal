@@ -43,8 +43,6 @@ const styles = StyleSheet.create( {
 class Input extends React.Component {
 
   render() {
-    // console.log('STATE\n\n', this.props);
-    // const {addNote, setNote, note,} = this.props;
     return (
       <View style={styles.container}>
         
@@ -61,7 +59,7 @@ class Input extends React.Component {
               
           <View style={styles.button}>
             <Button 
-                title="Add Todo"
+                title="Add to Notes"
                 onPress={this.props.addNote}
                 disabled={!this.props.friends.note && this.props.friends.image == types.EMPTY_IMAGE}
             />

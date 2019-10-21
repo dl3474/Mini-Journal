@@ -3,6 +3,7 @@ import types from './Types'
 
 
 const INITIAL_STATE = {
+  image: types.EMPTY_IMAGE,
   note: '',
   notes: [
     {
@@ -12,11 +13,10 @@ const INITIAL_STATE = {
     },
     {
       title: "10/2/2019",
-      data: [ {time: '9:30 am', note: 'Missed my bus and was late to class', image: types.EMPTY_IMAGE}, {time: '11:30 pm', note: 'Going to bed early today', image: types.EMPTY_IMAGE}, ]
+      data: [ {time: '9:30 am', note: 'Missed my bus and was late to class', image: types.EMPTY_IMAGE}, {time: '11:30 pm', note: 'Going to bed early today', image: types.EMPTY_IMAGE}, {time: '2:30 am', note: 'Jokes', image: types.EMPTY_IMAGE},]
       
     },
   ],
-  image: types.EMPTY_IMAGE,
 };
 
 const friendReducer = (state = INITIAL_STATE, action) => {
@@ -34,10 +34,6 @@ const friendReducer = (state = INITIAL_STATE, action) => {
       }
       const time = hour.toString() + ':' + newDate.getMinutes().toString() + ' ' + m
 
-      // console.log('ADDED NOTE STATE:\t', state.note, date);
-      console.log(date)
-      console.log(new Date().toLocaleString("en-US").split(','))
-      console.log(date, time)
       if (notes[notes.length - 1]["title"] != date) {
         notes.push({title: date, data: []})
       }
@@ -51,7 +47,6 @@ const friendReducer = (state = INITIAL_STATE, action) => {
     case types.SET_NOTE:
         let note = state.note;
         note = action.updateNote;
-        // console.log('Set NOTE STATE\t', action.updateNote);
         return { ... state, 
                   note: note,
                   };
@@ -60,7 +55,6 @@ const friendReducer = (state = INITIAL_STATE, action) => {
 
       let image = state.image;
       image = action.setImage;
-      // console.log("SET IMAGE\n\n", action.setImage)
       return {... state, 
               image: image }
 

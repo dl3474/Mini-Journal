@@ -1,8 +1,7 @@
 import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack'
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 
-import Home from './Home';
+import Notes from './Home';
 import Input from './Input';
 import Stats from './Stats';
 
@@ -10,7 +9,7 @@ import Stats from './Stats';
 const AppNavigator = createMaterialTopTabNavigator(
   {
     Input: {screen: Input},
-    Home: { screen: Home },
+    Notes: { screen: Notes },
     Stats: {screen: Stats},
 
   },

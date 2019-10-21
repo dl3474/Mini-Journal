@@ -50,9 +50,7 @@ class ImagePickerItem extends React.Component {
           
       
           if (!result.cancelled) {
-            // console.log("result.uri", result.uri)
             this.props.setImage(result.uri)
-            // console.log("result\n\n", this.props.friends.image);
           }
     };
   };
