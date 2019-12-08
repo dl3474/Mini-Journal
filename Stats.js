@@ -8,7 +8,7 @@ class Stats extends React.Component {
   calculateStats() {
     let totalNotes = 0;
     const lst = []
-    const notes = this.props.friends.notes;
+    const notes = this.props.reducer.notes;
     for (let i = 0; i < notes.length; i++){
       lst.push(<Text key={i} style={{margin: 5}}>{notes[i].title}: {notes[i].data.length}</Text>)
       totalNotes+= notes[i].data.length
@@ -23,7 +23,7 @@ class Stats extends React.Component {
         <View style={styles.top}>
           <View style={styles.one}>
             <Text>Days of Journaling:</Text>
-            <Text>{this.props.friends.notes.length}!!</Text>
+            <Text>{this.props.reducer.notes.length}!!</Text>
           </View>
           <View style={styles.one}>
             <Text>Total Notes:</Text>
@@ -73,8 +73,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  const { friends } = state
-  return { friends }
+  const { reducer } = state
+  return { reducer }
 };
 
 

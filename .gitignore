@@ -11,6 +11,7 @@ web-build/
 web-report/
 node_modules
 config.json
+credentials.js
 
 # macOS
 .DS_Store

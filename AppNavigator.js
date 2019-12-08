@@ -4,12 +4,15 @@ import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import Notes from './Home';
 import Input from './Input';
 import Stats from './Stats';
+import Calendar from './CalendarView'
 
 
 const AppNavigator = createMaterialTopTabNavigator(
   {
+    Calendar: {screen: Calendar},
+    Notes: { screen: Notes }, //how to not have this on the topTab while still able to navigate to it via button
     Input: {screen: Input},
-    Notes: { screen: Notes },
+
     Stats: {screen: Stats},
 
   },

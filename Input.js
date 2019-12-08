@@ -49,7 +49,7 @@ class Input extends React.Component {
         <TextInput 
             style={styles.input} 
             onChangeText={this.props.setNote} 
-            value={this.props.friends.note}
+            value={this.props.reducer.note}
             placeholder="Note"
         />
 
@@ -61,10 +61,9 @@ class Input extends React.Component {
             <Button 
                 title="Add to Notes"
                 onPress={this.props.addNote}
-                disabled={!this.props.friends.note && this.props.friends.image == types.EMPTY_IMAGE}
+                disabled={!this.props.reducer.note && this.props.reducer.image == types.EMPTY_IMAGE}
             />
           </View>
-          
 
         </View>
 
@@ -75,8 +74,8 @@ class Input extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { friends } = state
-  return { friends }
+  const { reducer } = state
+  return { reducer }
 };
 
 

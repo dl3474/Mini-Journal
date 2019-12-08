@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import {AsyncStorage} from 'react-native';
 import types from './Types'
 
 
@@ -19,7 +20,14 @@ const INITIAL_STATE = {
   ],
 };
 
-const friendReducer = (state = INITIAL_STATE, action) => {
+function saveToLocalStorage(state) {
+  AsyncStorage.setItem("STATE", JSON.stringify(state))
+}
+
+const reducer = (state = INITIAL_STATE, action) => {
+  
+  let newState;
+  
   switch (action.type) {
 
     case types.ADD_NOTE:
@@ -27,42 +35,64 @@ const friendReducer = (state = INITIAL_STATE, action) => {
       let m = 'am'
       const newDate = new Date();
       const date = (newDate.getMonth() + 1).toString() + '/' + newDate.getDate().toString() + '/' + newDate.getFullYear().toString()
-      let hour = newDate.getHours() 
-      if (hour > 12) {
+      let hour = newDate.getHours();
+      if (hour === 12){
+        m = 'pm';
+      } else if (hour > 12) {
         hour -= 12
         m = 'pm'
+        if (hour === 12) {
+          m = 'am'
+        }
       }
-      const time = hour.toString() + ':' + newDate.getMinutes().toString() + ' ' + m
 
+      let minute = newDate.getMinutes().toString();
+      if (minute.length === 1) {
+        minute = '0' + minute;
+      }
+      const time = hour.toString() + ':' + minute + ' ' + m;
+      
       if (notes[notes.length - 1]["title"] != date) {
         notes.push({title: date, data: []})
       }
       notes[notes.length - 1]["data"].push({time: time, note: state.note, image: state.image});
       
-      return { ... state, 
+      newState = { ... state, 
                 note: '',
                 image: types.EMPTY_IMAGE,
                 notes: notes};
+      
+      break;
 
     case types.SET_NOTE:
         let note = state.note;
         note = action.updateNote;
-        return { ... state, 
+        newState = { ... state, 
                   note: note,
                   };
+
+        break;
     
     case types.SET_IMAGE:
 
       let image = state.image;
       image = action.setImage;
-      return {... state, 
+      newState = {... state, 
               image: image }
 
+      break;
+
     default:
-      return state
+        newState = state
+        break;
   }
+
+  saveToLocalStorage(newState)
+
+  return newState;
+
 };
 
 export default combineReducers({
-  friends: friendReducer,
+  reducer: reducer,
 });

@@ -14,10 +14,10 @@ class ImagePickerItem extends React.Component {
   render() {
 
     return (
-      <View style={{justifyContent: 'center', alignContent: 'center' }}>
+      <View style={{alignSelf: 'center' }}>
           
-        {this.props.friends.image === types.EMPTY_IMAGE ? false : true &&
-          <Image source={{ uri: this.props.friends.image }} style={{ width: 200, height: 200}} />}
+        {this.props.reducer.image === types.EMPTY_IMAGE ? false : true &&
+          <Image source={{ uri: this.props.reducer.image }} style={{ width: 200, height: 200}} />}
 
         <Button
           style={{margin: 20}}
@@ -58,8 +58,8 @@ class ImagePickerItem extends React.Component {
 
 
 const mapStateToProps = (state) => {
-    const { friends } = state
-    return { friends }
+    const { reducer } = state
+    return { reducer }
   };
   
   

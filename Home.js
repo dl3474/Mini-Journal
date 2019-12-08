@@ -3,18 +3,20 @@ import { StyleSheet, Text, View, Button, Image, FlatList, SectionList } from 're
 import { connect } from 'react-redux';
 import Constants from 'expo-constants';
 import types from './Types'
+import { Calendar, CalendarList } from 'react-native-calendars';
+
 
 
 class Home extends React.Component {
 
   render() {
-    //let arrayOfNotes = Object.keys(this.props.friends.notes).map(key => this.props.friends.notes[key])
+    //let arrayOfNotes = Object.keys(this.props.reducer.notes).map(key => this.props.reducer.notes[key])
 
     return (
       
       <View style={styles.container}>
         <SectionList
-          sections={this.props.friends.notes}
+          sections={this.props.reducer.notes}
           renderItem={({ item }) =>          
            (
            <View style={styles.item}>
@@ -60,8 +62,8 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = (state) => {
-  const { friends } = state
-  return { friends }
+  const { reducer } = state
+  return { reducer }
 };
 
 
