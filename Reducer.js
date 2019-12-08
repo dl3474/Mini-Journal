@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
 import {AsyncStorage} from 'react-native';
 import types from './Types'
+import { firestore } from './firebase'
+
 
 
 const INITIAL_STATE = {
@@ -31,6 +33,8 @@ const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
 
     case types.ADD_NOTE:
+      firestore.collection('12-8-19').add({time: "12Am", note: "wowww"})
+
       const notes = state.notes;
       let m = 'am'
       const newDate = new Date();

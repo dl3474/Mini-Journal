@@ -5,10 +5,13 @@ import Notes from './Home';
 import Input from './Input';
 import Stats from './Stats';
 import Calendar from './CalendarView'
+import Auth from './Auth';
+
 
 
 const AppNavigator = createMaterialTopTabNavigator(
   {
+    Auth: {screen: Auth},
     Calendar: {screen: Calendar},
     Notes: { screen: Notes }, //how to not have this on the topTab while still able to navigate to it via button
     Input: {screen: Input},
