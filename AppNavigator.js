@@ -11,12 +11,13 @@ import Auth from './Auth';
 
 const AppNavigator = createMaterialTopTabNavigator(
   {
-    Auth: {screen: Auth},
-    Calendar: {screen: Calendar},
-    Notes: { screen: Notes }, //how to not have this on the topTab while still able to navigate to it via button
     Input: {screen: Input},
 
+    Auth: {screen: Auth},
+    Calendar: {screen: Calendar},
     Stats: {screen: Stats},
+    ' ': { screen: Notes},
+
 
   },
   {

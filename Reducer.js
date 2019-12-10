@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import {AsyncStorage} from 'react-native';
+import { AsyncStorage } from 'react-native';
 import types from './Types'
 import { firestore } from './firebase'
 
@@ -7,7 +7,9 @@ import { firestore } from './firebase'
 
 const INITIAL_STATE = {
   image: types.EMPTY_IMAGE,
-  note: '',
+  note: types.EMPTY_STRING,
+  listCollection: [],
+  user: types.EMPTY_STRING,
   notes: [
     {
       title: "10/1/2019",
@@ -33,12 +35,12 @@ const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
 
     case types.ADD_NOTE:
-      firestore.collection('12-8-19').add({time: "12Am", note: "wowww"})
 
+      //formatting data and time
       const notes = state.notes;
       let m = 'am'
       const newDate = new Date();
-      const date = (newDate.getMonth() + 1).toString() + '/' + newDate.getDate().toString() + '/' + newDate.getFullYear().toString()
+      const date = (newDate.getMonth() + 1).toString() + '-' + newDate.getDate().toString() + '-' + newDate.getFullYear().toString()
       let hour = newDate.getHours();
       if (hour === 12){
         m = 'pm';
@@ -61,9 +63,18 @@ const reducer = (state = INITIAL_STATE, action) => {
       }
       notes[notes.length - 1]["data"].push({time: time, note: state.note, image: state.image});
       
+      //list of collections in firebase for accessing
+      const listCollection = state.listCollection;
+      if (!(listCollection.includes(date))) {
+        listCollection.push(date);
+      }
+      
+      firestore.collection(date).add({time: time, note: state.note, image: state.image})
+
       newState = { ... state, 
                 note: '',
                 image: types.EMPTY_IMAGE,
+                listCollection: listCollection,
                 notes: notes};
       
       break;
@@ -85,14 +96,37 @@ const reducer = (state = INITIAL_STATE, action) => {
               image: image }
 
       break;
+    
+      
+      case types.SET_NOTES:
+        const items = state.notes
+        items = action.updateNotes
+        newState = {
+            ...state,
+            notes: items
+        }
 
+        break;
+
+
+      case types.SET_USER:
+        let user = state.user
+        user = action.updateUser
+
+        newState = {
+            ...state,
+            user: user
+        }
+
+        break;
+
+        
     default:
         newState = state
         break;
   }
 
   saveToLocalStorage(newState)
-
   return newState;
 
 };

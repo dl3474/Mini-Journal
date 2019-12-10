@@ -19,4 +19,19 @@ const setImage = image => (
         setImage: image
     }
 )
-export { addNote, setNote, setImage }
+
+const setNotes = updateNotes => (
+    {
+        type: types.SET_NOTES,
+        updateNotes: updateNotes
+    }
+)
+
+const setUser = updateUser => (
+    {
+        type: types.SET_USER,
+        updateUser: updateUser
+    }
+)
+
+export { addNote, setNote, setImage, setNotes, setUser }

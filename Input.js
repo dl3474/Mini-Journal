@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux';
 import { addNote, setNote, setImage } from './Actions';
 import Image from './imagePicker'
 import types from './Types'
-import { withNavigation } from 'react-navigation'
 
 
 const styles = StyleSheet.create( {
@@ -43,6 +42,7 @@ const styles = StyleSheet.create( {
 class Input extends React.Component {
 
   render() {
+    console.log(this.props)
     return (
       <View style={styles.container}>
         
@@ -83,7 +83,7 @@ const mapDispatchToProps = dispatch => (
     bindActionCreators({
       addNote,
       setNote, 
-      setImage
+      setImage,
     }, dispatch)
   );
   

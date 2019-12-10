@@ -2,7 +2,16 @@ import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { connect } from 'react-redux';
 import types from './Types'
+import { auth } from './firebase'
 
+logout = async () => {
+  try {
+      await auth.signOut();
+      console.log('logout')
+  } catch(err) {
+    console.log('ERROR IN LOGGING OUT\n\n', err);
+  }
+}
 
 class Stats extends React.Component {
   calculateStats() {
@@ -38,6 +47,10 @@ class Stats extends React.Component {
           <Button
             title="Back to Input"
             onPress={() =>this.props.navigation.navigate('Input')}
+          />
+          <Button
+            title="Logout"
+            onPress={() => logout()}
           />
         </View>
       </View>

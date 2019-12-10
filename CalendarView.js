@@ -17,15 +17,16 @@ class CalendarView extends React.Component {
           <Button
             style={{margin: 20, alignSelf: 'flex-end'}}
             title="View All Notes!"
-            onPress={() =>this.props.navigation.navigate('Notes')}
+            onPress={() => this.props.navigation.navigate(' ')}
         />
           <CalendarList
             horizontal={true}
             calendarWidth={320}
             hideArrows={false}
+            //pagingEnabled={true}
 
-            current={'2012-05-01'}
-            minDate={'2012-05-10'} //first date of entry
+            current={'2012-03-01'}
+            minDate={'2012-02-10'} //first date of entry
             maxDate={'2012-05-30'} //current date
             onDayPress={(day) => {console.log('selected day', day)}} //navigate to list view of the selected date
             markedDates={{
@@ -38,7 +39,11 @@ class CalendarView extends React.Component {
             style={{
               borderWidth: 1,
               borderColor: 'gray',
-              height: 350
+              height: 350,
+              width: 321,
+              alignSelf: 'center',
+              overflow: 'hidden',
+
             }}
           />
 
@@ -51,7 +56,6 @@ class CalendarView extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: 16,
     backgroundColor: 'pink'
   },
   item: {

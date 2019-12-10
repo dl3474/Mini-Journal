@@ -4,6 +4,13 @@
     "slug": "Mini-Journal",
     "privacy": "public",
     "sdkVersion": "35.0.0",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.daisy.miniJournal"
+    },
+    "android": {
+      "package": "com.daisy.miniJournal"
+    },
     "platforms": [
       "ios",
       "android",
@@ -23,9 +30,7 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true
-    },
+
     "description": "A Mini Journal to jot down your thoughts and upload memorable photos throughout the day ",
     "githubUrl": "https://github.com/dl3474/Mini-Journal"
   }
