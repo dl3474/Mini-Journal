@@ -46,10 +46,14 @@ async function logIn() {
 class Auth extends React.Component {
     render() {
       return (
-      <Button
-      onPress={() => {logIn()}}
-      title="Login with Facebook"
-      />
+        <View style={{alignSelf: 'center'}}>
+          <Button
+            style={{margin: 20}}
+            onPress={() => {logIn()}}
+            title="Login with Facebook"
+          />
+        </View>
+      
       )
   
     }

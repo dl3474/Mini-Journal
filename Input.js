@@ -27,6 +27,7 @@ const styles = StyleSheet.create( {
   button: {
     justifyContent: 'center',
     margin: 10,
+    alignSelf: 'center'
   },
 
   spacing: {
@@ -58,6 +59,7 @@ class Input extends React.Component {
               
           <View style={styles.button}>
             <Button 
+                style={{margin: 15}}
                 title="Add to Notes"
                 onPress={this.props.addNote}
                 disabled={!this.props.reducer.note && this.props.reducer.image == types.EMPTY_IMAGE}

@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import { connect } from 'react-redux';
 import types from './Types'
 import { auth } from './firebase'
+import { Card, Title, Paragraph } from 'react-native-paper';
+import Image from './imagePicker'
 
 logout = async () => {
   try {
@@ -28,6 +30,7 @@ class Stats extends React.Component {
   render() {
     const [dateNotes, totalNotes] = this.calculateStats();
     return (
+      /*
       <View style={styles.container}>
         <View style={styles.top}>
           <View style={styles.one}>
@@ -44,16 +47,54 @@ class Stats extends React.Component {
           <View style={styles.one}>
             {dateNotes}
           </View>
-          <Button
-            title="Back to Input"
-            onPress={() =>this.props.navigation.navigate('Input')}
-          />
-          <Button
-            title="Logout"
-            onPress={() => logout()}
-          />
+          <View style={{alignSelf: 'center', padding: 30}}>
+            <Button
+              style={{margin: 20}}
+              title="Logout"
+              onPress={() => logout()}
+            />
+          </View>
+          
         </View>
+      </View>*/
+      <View style={styles.container}>
+      
+      <Card style={{marginTop: 20}}>
+        <Card.Content>
+          <Title>Name: {this.props.reducer.name}</Title>
+          <Paragraph> </Paragraph>
+          <Image/>
+          <View style={{alignSelf: 'center'}}>
+            <Button 
+                style={{margin: 15}}
+                title="Add Avatar"
+                onPress={this.props.addImage}
+                disabled={this.props.reducer.image == types.EMPTY_IMAGE}
+            />
+          </View>
+        </Card.Content>
+      </Card>
+
+      <Card style={{marginTop: 20}}>
+        <Card.Content>
+          <Title>Days of Journaling: {this.props.reducer.notes.length}!!</Title>
+          <Title>Total Notes: {totalNotes}!!</Title>
+          <View style={{marginLeft: 10}}>{dateNotes}</View>
+        </Card.Content>
+      </Card>
+
+
+      <View style={{alignSelf: 'center', padding: 30}}>
+        <Button
+          style={{margin: 20}}
+          title="Logout"
+          onPress={() => logout()}
+        />
       </View>
+
+      </View>
+ 
+
     );
   }
 }
@@ -62,7 +103,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'pink',
-    
+    padding: 20
   },
   top: {
     flex: 1, 
