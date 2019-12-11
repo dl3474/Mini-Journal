@@ -1,14 +1,13 @@
 import { combineReducers } from 'redux';
 import { AsyncStorage } from 'react-native';
 import types from './Types'
-import { firestore } from './firebase'
+import { Timestamp, firestore, firebase } from './firebase'
 
 
 
 const INITIAL_STATE = {
   image: types.EMPTY_IMAGE,
   note: types.EMPTY_STRING,
-  listCollection: [],
   user: types.EMPTY_STRING,
   notes: [
     {
@@ -62,19 +61,12 @@ const reducer = (state = INITIAL_STATE, action) => {
         notes.push({title: date, data: []})
       }
       notes[notes.length - 1]["data"].push({time: time, note: state.note, image: state.image});
-      
-      //list of collections in firebase for accessing
-      const listCollection = state.listCollection;
-      if (!(listCollection.includes(date))) {
-        listCollection.push(date);
-      }
-      
-      firestore.collection(date).add({time: time, note: state.note, image: state.image})
+
+      firestore.collection("notes").add({owner: state.user, time: firebase.firestore.Timestamp.fromDate(new Date()), note: state.note, image: state.image})
 
       newState = { ... state, 
-                note: '',
+                note: types.EMPTY_STRING,
                 image: types.EMPTY_IMAGE,
-                listCollection: listCollection,
                 notes: notes};
       
       break;

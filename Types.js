@@ -3,10 +3,10 @@ const types = {
     ADD_NOTE: 'ADD_NOTE',
     SET_NOTE: 'SET_NOTE',
     SET_IMAGE: 'SET_IMAGE',
-    EMPTY_IMAGE: 'EMPTY_IMAGE',
     SET_NOTES: 'SET_NOTES',
     SET_USER: 'SET_USER',
     EMPTY_STRING: '',
+    EMPTY_IMAGE: 'EMPTY_IMAGE'
 }
 
 export default types

@@ -12,8 +12,6 @@ import Auth from './Auth';
 const AppNavigator = createMaterialTopTabNavigator(
   {
     Input: {screen: Input},
-
-    Auth: {screen: Auth},
     Calendar: {screen: Calendar},
     Stats: {screen: Stats},
     ' ': { screen: Notes},
