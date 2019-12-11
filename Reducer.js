@@ -60,9 +60,9 @@ const reducer = (state = INITIAL_STATE, action) => {
       if (notes[notes.length - 1]["title"] != date) {
         notes.push({title: date, data: []})
       }
-      notes[notes.length - 1]["data"].push({time: time, note: state.note, image: state.image});
+      notes[notes.length - 1]["data"].push({timestamp: time, note: state.note, image: state.image});
 
-      firestore.collection("notes").add({owner: state.user, time: firebase.firestore.Timestamp.fromDate(new Date()), note: state.note, image: state.image})
+      firestore.collection("notes").add({owner: state.user, timestamp: firebase.firestore.Timestamp.fromDate(new Date()), note: state.note, image: state.image})
 
       newState = { ... state, 
                 note: types.EMPTY_STRING,
@@ -91,11 +91,12 @@ const reducer = (state = INITIAL_STATE, action) => {
     
       
       case types.SET_NOTES:
-        const items = state.notes
-        items = action.updateNotes
+        let _notes = state.notes
+        _notes = action.updateNotes
+
         newState = {
             ...state,
-            notes: items
+            notes: _notes
         }
 
         break;
@@ -105,6 +106,8 @@ const reducer = (state = INITIAL_STATE, action) => {
         let user = state.user
         user = action.updateUser
 
+        firestore.collection("users").add({userID: user})
+        
         newState = {
             ...state,
             user: user

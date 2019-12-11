@@ -42,7 +42,7 @@ const styles = StyleSheet.create( {
 class Input extends React.Component {
 
   render() {
-    console.log(this.props)
+    //console.log(this.props)
     return (
       <View style={styles.container}>
         

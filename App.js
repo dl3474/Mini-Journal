@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducer from './Reducer';
 import { connect } from 'react-redux';
-import { setUser } from './Actions';
+import { setUser, setNotes } from './Actions';
 import types from './Types';
 import { bindActionCreators } from 'redux';
 
@@ -16,6 +16,8 @@ const store = createStore(reducer);
 
 
 const boundSetUser = text => store.dispatch(setUser(text))
+
+const boundSetNotes = notes => store.dispatch(setNotes(notes))
 
 function formatTime(timestamp) {
 
@@ -50,41 +52,37 @@ auth.onAuthStateChanged((user) => {
 
     // Fetch items collection
     firestore.collection('notes')
-    // Filter items by user ownership (only get the records created by the current user)
-    .orderBy("timestamp")
+    //.orderBy("timestamp")
     // Continuously listen for updates to the items query
     .onSnapshot((snapshot) => {
       console.log("SNAPSHOT\n\n")
+      //console.log(snapshot)
 
       const notes = []
       let prevDate = ''
       let count = 0
-      let data;
-      let timestamp;
-      let date;
-      let time;
 
       snapshot.forEach(function(doc) {
-        console.log("SNAPSHOT FOR EACH\n\n")
+        console.log("SNAPSHOT FOR EACH\n\n", doc.data())
           // doc.data() is never undefined for query doc snapshots
-          data = doc.data();
-          timestamp = data.timestamp.toDate();
+          const data = doc.data();
+          let timestamp = data.timestamp.toDate();
 
-          date = (timestamp.getMonth() + 1).toString() + '-' + timestamp.getDate().toString() + '-' + timestamp.getFullYear().toString()
-          time = formatTime(timestamp);
+          let date = (timestamp.getMonth() + 1).toString() + '-' + timestamp.getDate().toString() + '-' + timestamp.getFullYear().toString()
+          let time = formatTime(timestamp);
           
-          console.log(count, data.owner, user.uid)
-          if (data.owner === '') { 
+          console.log(count, 'owner', data.owner, 'userID', user.uid)
+          if (data.owner === user.uid) { 
 
             if (prevDate === date) {
-              console.log(count, "prevDate === date", prevDate, date, {time: time, note: data.note, image: data.image})
-              notes[notes.length - 1]["data"].push({time: data.timestamp.toDate(), note: dayNotes, image: data.image});
+              console.log(count, "prevDate === date", prevDate, date, {timestamp: time, note: data.note, image: data.image})
+              notes[notes.length - 1]["data"].push({timestamp: data.timestamp.toDate(), note: data.note, image: data.image});
 
             } else {
               prevDate = date;
 
               console.log(count, "prevDate !== date", prevDate, date)
-              notes.push({title: prevDate, data: [{time: time, note: data.note, image: data.image}] })
+              notes.push({title: prevDate, data: [{timestamp: time, note: data.note, image: data.image}] })
             }
 
             
@@ -111,7 +109,8 @@ auth.onAuthStateChanged((user) => {
           count++;
 
       });
-      console.log('Notes', notes)
+      console.log('Notes\n\n', notes)
+      boundSetNotes(notes);
       //store.dispatch('SET_ITEMS', items)
 
 
