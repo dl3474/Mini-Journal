@@ -6,7 +6,8 @@ const types = {
     SET_NOTES: 'SET_NOTES',
     SET_USER: 'SET_USER',
     EMPTY_STRING: '',
-    EMPTY_IMAGE: 'EMPTY_IMAGE'
+    EMPTY_IMAGE: 'EMPTY_IMAGE',
+    SET_MIN: 'SET_MIN'
 }
 
 export default types

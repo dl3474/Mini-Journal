@@ -7,8 +7,8 @@ import { Calendar, CalendarList } from 'react-native-calendars';
 
 
 
-class CalendarView extends React.Component {
 
+class CalendarView extends React.Component {
   render() {
 
     return (
@@ -25,17 +25,18 @@ class CalendarView extends React.Component {
             hideArrows={false}
             //pagingEnabled={true}
 
-            current={'2012-03-01'}
-            minDate={'2012-02-10'} //first date of entry
-            maxDate={'2012-05-30'} //current date
-            onDayPress={(day) => {console.log('selected day', day)}} //navigate to list view of the selected date
-            markedDates={{
+            current={this.props.reducer.currentDate.toString()}
+            minDate={this.props.reducer.minDate.toString()} //first date of entry
+            maxDate={this.props.reducer.currentDate.toString()} //current date
+            onDayPress={(day) => this.props.navigation.navigate(' ')} //navigate to list view of the selected date
+            
+            /*markedDates={{
               '2012-05-16': {selected: true, marked: true, selectedColor: 'blue'},
               '2012-05-17': {marked: true},
               '2012-05-18': {marked: true, dotColor: 'red', activeOpacity: 0},
               '2012-05-19': {disabled: true, disableTouchEvent: true}
             }} //mark the dates that have entries
-
+            */
             style={{
               borderWidth: 1,
               borderColor: 'gray',

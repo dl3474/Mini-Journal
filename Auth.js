@@ -7,9 +7,10 @@ import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'rea
 
 async function logIn() { 
 //try {
-  const appId = "2545626589042405";
+
+  const appId = Expo.Constants.manifest.extra.facebook.appId;
   const permissions = ['public_profile'];  // Permissions required, consult Facebook docs
-  
+  console.log(appId)
   const {
     type,
     token,
@@ -17,9 +18,12 @@ async function logIn() {
     appId,
     {permissions}
   );
+  
+  console.log("type", type, "token", token)
 
   switch (type) {
     case 'success': {
+      console.log('SUCCESS')
         await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);  // Set persistent auth state
         const credential = firebase.auth.FacebookAuthProvider.credential(token);
         await auth.signInWithCredential(credential);  // Sign in with Facebook credential
@@ -30,6 +34,8 @@ async function logIn() {
       return Promise.resolve({type: 'success'});
     }
     case 'cancel': {
+      console.log('CANCEL')
+      
       return Promise.reject({type: 'cancel'});
     }
   }

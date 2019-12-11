@@ -34,4 +34,10 @@ const setUser = updateUser => (
     }
 )
 
-export { addNote, setNote, setImage, setNotes, setUser }
+const setMin = updateMin => (
+    {
+        type: types.SET_MIN,
+        updateMin: updateMin
+    }
+)
+export { addNote, setNote, setImage, setNotes, setUser, setMin }

@@ -3,6 +3,7 @@ import { AsyncStorage } from 'react-native';
 import types from './Types'
 import { Timestamp, firestore, firebase } from './firebase'
 
+const newDate = new Date();
 
 
 const INITIAL_STATE = {
@@ -12,16 +13,19 @@ const INITIAL_STATE = {
   notes: [
     {
       title: "10/1/2019",
-      data: [ {time: '5:30 pm', note: 'Had time and went to the park!', image: types.EMPTY_IMAGE}, {time: '7:40', note: 'Just had dinner with Renne', image: types.EMPTY_IMAGE}, ]
+      data: [ {timestampstamp: '5:30 pm', note: 'Had time and went to the park!', image: types.EMPTY_IMAGE}, {timestamp: '7:40', note: 'Just had dinner with Renne', image: types.EMPTY_IMAGE}, ]
       
     },
     {
       title: "10/2/2019",
-      data: [ {time: '9:30 am', note: 'Missed my bus and was late to class', image: types.EMPTY_IMAGE}, {time: '11:30 pm', note: 'Going to bed early today', image: types.EMPTY_IMAGE}, {time: '2:30 am', note: 'Jokes', image: types.EMPTY_IMAGE},]
+      data: [ {timestampstamp: '9:30 am', note: 'Missed my bus and was late to class', image: types.EMPTY_IMAGE}, {timestamp: '11:30 pm', note: 'Going to bed early today', image: types.EMPTY_IMAGE}, {timestamp: '2:30 am', note: 'Jokes', image: types.EMPTY_IMAGE},]
       
     },
   ],
+  currentDate: newDate.getFullYear().toString() + '-' + (newDate.getMonth() + 1).toString() + '-' + newDate.getDate().toString(),
+  minDate: types.EMPTY_STRING
 };
+
 
 function saveToLocalStorage(state) {
   AsyncStorage.setItem("STATE", JSON.stringify(state))
@@ -38,7 +42,6 @@ const reducer = (state = INITIAL_STATE, action) => {
       //formatting data and time
       const notes = state.notes;
       let m = 'am'
-      const newDate = new Date();
       const date = (newDate.getMonth() + 1).toString() + '-' + newDate.getDate().toString() + '-' + newDate.getFullYear().toString()
       let hour = newDate.getHours();
       if (hour === 12){
@@ -47,6 +50,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         hour -= 12
         m = 'pm'
         if (hour === 12) {
+          hour = 12
           m = 'am'
         }
       }
@@ -57,10 +61,10 @@ const reducer = (state = INITIAL_STATE, action) => {
       }
       const time = hour.toString() + ':' + minute + ' ' + m;
       
-      if (notes[notes.length - 1]["title"] != date) {
+      if (notes.length === 0 || notes[notes.length - 1]["title"] != date) {
         notes.push({title: date, data: []})
       }
-      notes[notes.length - 1]["data"].push({timestamp: time, note: state.note, image: state.image});
+      notes[notes.length - 1]["data"].push({timestampstamp: time, note: state.note, image: state.image});
 
       firestore.collection("notes").add({owner: state.user, timestamp: firebase.firestore.Timestamp.fromDate(new Date()), note: state.note, image: state.image})
 
@@ -105,7 +109,7 @@ const reducer = (state = INITIAL_STATE, action) => {
       case types.SET_USER:
         let user = state.user
         user = action.updateUser
-
+        //!!!!
         firestore.collection("users").add({userID: user})
         
         newState = {
@@ -115,6 +119,14 @@ const reducer = (state = INITIAL_STATE, action) => {
 
         break;
 
+        case types.SET_MIN:
+          let min = state.minDate;
+          min = action.updateMin;
+          newState = { ... state, 
+                    minDate: min,
+                    };
+  
+          break;
         
     default:
         newState = state

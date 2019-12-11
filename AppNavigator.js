@@ -5,7 +5,6 @@ import Notes from './Home';
 import Input from './Input';
 import Stats from './Stats';
 import Calendar from './CalendarView'
-import Auth from './Auth';
 
 
 

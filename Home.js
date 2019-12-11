@@ -5,7 +5,37 @@ import Constants from 'expo-constants';
 import types from './Types'
 import { Calendar, CalendarList } from 'react-native-calendars';
 
+/*
+setItemRef= (itemId) => (element) => 
+{
+ const {selectedItemId} = this.props.navigation.state.params;
+ if(selectedItemId === itemId & !this.itemRef)
+    this.itemRef = element;
+}
 
+setScrollViewRef = (element) => {
+  this.scrollViewRef = element;
+};
+
+scrollToItem = () => {
+  this.productCardRef.measureLayout(
+    ReactNative.findNodeHandle(this.scrollViewRef),
+    (x, y) => {
+      this.scrollViewRef.scrollTo({x: 0, y: y, animated: true});
+    }
+  );
+ }
+
+ scrollToItem = () => {
+  requestAnimationFrame(() => {
+    if (this.itemCardRef && this.scrollViewRef) {
+     this.itemCardRef.measureLayout(
+       findNodeHandle(this.scrollViewRef),(x, y) => {
+         this.scrollViewRef.scrollTo({x: 0, y: y,  animated:true});
+     });
+    }
+  });
+ }*/
 
 class Home extends React.Component {
 
@@ -16,11 +46,12 @@ class Home extends React.Component {
       
       <View style={styles.container}>
         <SectionList
+          ref={this.setScrollViewRef}
           sections={this.props.reducer.notes}
           renderItem={({ item }) =>          
            (
            <View style={styles.item}>
-              <Text>Time: {item.time}</Text>
+              <Text>Time: {item.timestamp}</Text>
 
               {item.note === '' ? false : true && 
                 <Text>Note: {item.note}</Text> }
@@ -45,7 +76,8 @@ class Home extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: 16,
+    padding: 16,
+    backgroundColor: 'white'
   },
   item: {
     backgroundColor: 'pink',

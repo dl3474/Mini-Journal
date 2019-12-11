@@ -3,10 +3,10 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducer from './Reducer';
 import { connect } from 'react-redux';
-import { setUser, setNotes } from './Actions';
+import { setUser, setNotes, setMin } from './Actions';
 import types from './Types';
 import { bindActionCreators } from 'redux';
-
+import { View } from 'react-native';
 import Auth from './Auth';
 import AppNavigator from './AppNavigator';
 
@@ -19,16 +19,21 @@ const boundSetUser = text => store.dispatch(setUser(text))
 
 const boundSetNotes = notes => store.dispatch(setNotes(notes))
 
+const boundSetMin = min => store.dispatch(setMin(min))
+
+
 function formatTime(timestamp) {
 
   let m = 'am'
   let hour = timestamp.getHours();
+  console.log(hour)
   if (hour === 12){
     m = 'pm';
   } else if (hour > 12) {
     hour -= 12
     m = 'pm'
     if (hour === 12) {
+      hour = 12
       m = 'am'
     }
   }
@@ -52,15 +57,13 @@ auth.onAuthStateChanged((user) => {
 
     // Fetch items collection
     firestore.collection('notes')
-    //.orderBy("timestamp")
+    .orderBy("timestamp")
     // Continuously listen for updates to the items query
     .onSnapshot((snapshot) => {
       console.log("SNAPSHOT\n\n")
-      //console.log(snapshot)
 
       const notes = []
-      let prevDate = ''
-      let count = 0
+      let prevDate = types.EMPTY_STRING
 
       snapshot.forEach(function(doc) {
         console.log("SNAPSHOT FOR EACH\n\n", doc.data())
@@ -71,42 +74,22 @@ auth.onAuthStateChanged((user) => {
           let date = (timestamp.getMonth() + 1).toString() + '-' + timestamp.getDate().toString() + '-' + timestamp.getFullYear().toString()
           let time = formatTime(timestamp);
           
-          console.log(count, 'owner', data.owner, 'userID', user.uid)
           if (data.owner === user.uid) { 
 
             if (prevDate === date) {
-              console.log(count, "prevDate === date", prevDate, date, {timestamp: time, note: data.note, image: data.image})
-              notes[notes.length - 1]["data"].push({timestamp: data.timestamp.toDate(), note: data.note, image: data.image});
+              notes[notes.length - 1]["data"].push({timestamp: time, note: data.note, image: data.image});
 
             } else {
+              if (prevDate === types.EMPTY_STRING){
+                boundSetMin(date);
+                console.log(date)
+              }
               prevDate = date;
 
-              console.log(count, "prevDate !== date", prevDate, date)
               notes.push({title: prevDate, data: [{timestamp: time, note: data.note, image: data.image}] })
             }
 
-            
-            /*
-              if (date !== prevDate) { 
-              
-                console.log("prevDate !== ''", {title: prevDate, data: dayNotes})
-                notes.push({title: prevDate, data: dayNotes});
-              }
-              console.log("prevDate = date; dayNotes = []")
-                prevDate = date;
-                dayNotes = [];
-            } 
-            console.log("dayNotes.push", {time: time, note: dayNotes, image: data.image})
-            dayNotes.push( {time: data.timestamp.toDate(), note: dayNotes, image: data.image})
-            
-            count++;
-            */
-          // notes.push({
-          //   title: "1-1-19",
-          //   data: [ {time: data.timestamp.toDate(), note: data.note, image: data.image}]
-          // })
           }
-          count++;
 
       });
       console.log('Notes\n\n', notes)
@@ -119,67 +102,38 @@ auth.onAuthStateChanged((user) => {
   } else { 
     console.log("signed out.\n\n")
     boundSetUser(types.EMPTY_STRING);
-    userID = types.EMPTY_STRING
 
-    console.log('SIGNED OUT\n\n', user);
   }
 })
 
 let AuthGate = (props) => {
   console.log('props\n\n')
+  console.log(props)
   if (props.reducer.user === types.EMPTY_STRING) {
     console.log("not logged in\n\n")
-    console.log(props)
     return (<Auth/>)
   } else {
-    console.log("logged in!!\n\n")
-    console.log(props.reducer.user)
-    console.log("\n\n")
+    console.log("authgate---- logged in!!\n\n")
     return (<AppNavigator />) 
   }
 }
 
-
-/*
-auth.onAuthStateChanged((user) => {
-    // Check that a user is logged in
-    if (user) {
-      // Store user details in flux store
-      store.dispatch('AUTH', user)
-
-      // Fetch items collection
-      firestore.collection('items')
-      // Filter items by user ownership (only get the records created by the current user)
-      .where("owner", "==", user.uid)
-      // Continuously listen for updates to the items query
-      .onSnapshot((snapshot) => {
-        const items = []
-        snapshot.forEach(function(doc) {
-            // doc.data() is never undefined for query doc snapshots
-            items.push({...doc.data(), id: doc.id})
-        });
-        console.log('data', items)
-        store.dispatch('SET_ITEMS', items)
-      });
-      
-    }
-})
-
-*/
 class App extends React.Component {
   
   render() {
     return (
       <Provider store={ store } >
-        <AuthGate />
+        <View style={{paddingTop: 45, flex: 1, backgroundColor: '#CE9DD9'}}>
+          <AuthGate />
+
+        </View>
       </Provider>
     );
   }
 }
 
+
 const mapStateToProps = (state) => {
-  console.log("state\n\n")
-  console.log(state)
   const { reducer } = state
   return { reducer }
 };
