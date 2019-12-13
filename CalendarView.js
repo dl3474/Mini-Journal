@@ -14,11 +14,6 @@ class CalendarView extends React.Component {
     return (
       
       <View style={styles.container}>
-          <Button
-            style={{margin: 20, alignSelf: 'flex-end'}}
-            title="View All Notes!"
-            onPress={() => this.props.navigation.navigate(' ')}
-        />
           <CalendarList
             horizontal={true}
             calendarWidth={320}
@@ -44,9 +39,19 @@ class CalendarView extends React.Component {
               width: 321,
               alignSelf: 'center',
               overflow: 'hidden',
+              marginVertical: 20
 
             }}
           />
+
+        <View
+          style={{alignSelf: 'center' }}>
+          <Button
+            style={{margin: 20}}
+            title="View All Notes!"
+            onPress={() => this.props.navigation.navigate(' ')}
+          />
+        </View>
 
       </View>
     );

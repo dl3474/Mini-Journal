@@ -7,7 +7,8 @@ const types = {
     SET_USER: 'SET_USER',
     EMPTY_STRING: '',
     EMPTY_IMAGE: 'EMPTY_IMAGE',
-    SET_MIN: 'SET_MIN'
+    SET_MIN: 'SET_MIN',
+    SET_NAME: 'SET_NAME'
 }
 
 export default types
