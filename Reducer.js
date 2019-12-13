@@ -10,11 +10,20 @@ const INITIAL_STATE = {
   image: types.EMPTY_IMAGE,
   note: types.EMPTY_STRING,
   user: types.EMPTY_STRING,
-  notes: [],
+  notes: [
+    {
+      title: "10/1/2019",
+      data: [ {timestampstamp: '5:30 pm', note: 'Had time and went to the park!', image: types.EMPTY_IMAGE}, {timestamp: '7:40', note: 'Just had dinner with Renne', image: types.EMPTY_IMAGE}, ]
+      
+    },
+    {
+      title: "10/2/2019",
+      data: [ {timestampstamp: '9:30 am', note: 'Missed my bus and was late to class', image: types.EMPTY_IMAGE}, {timestamp: '11:30 pm', note: 'Going to bed early today', image: types.EMPTY_IMAGE}, {timestamp: '2:30 am', note: 'Jokes', image: types.EMPTY_IMAGE},]
+      
+    },
+  ],
   currentDate: newDate.getFullYear().toString() + '-' + (newDate.getMonth() + 1).toString() + '-' + newDate.getDate().toString(),
-  minDate: types.EMPTY_STRING,
-  name: types.EMPTY_STRING,
-  imageP: types.EMPTY_IMAGE
+  minDate: types.EMPTY_STRING
 };
 
 
@@ -118,27 +127,7 @@ const reducer = (state = INITIAL_STATE, action) => {
                     };
   
           break;
-
-        case types.SET_NAME:
-            let name = state.name;
-            name = action.updateName;
-            newState = { ... state, 
-                      name: name,
-                      };
-    
-            break;
         
-          case types.ADD_IMAGE:
-
-            let image_ = state.imageP;
-            image_ = action.addImage;
-            
-            firestore.collection("images").add({owner: user, image: image});
-            
-            newState = {... state, 
-                    imageP: image_ }
-      
-                break;
     default:
         newState = state
         break;

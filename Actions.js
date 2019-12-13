@@ -40,23 +40,4 @@ const setMin = updateMin => (
         updateMin: updateMin
     }
 )
-
-const setName = updateName => (
-    {
-        type: types.SET_NAME,
-        updateName: updateName
-    }
-)
-
-
-const addImage = image => (
-    {
-        type: types.ADD_IMAGE,
-        addImage: image
-    }
-)
-
-
-
-
-export { addNote, setNote, setImage, setNotes, setUser, setMin, setName, addImage }
+export { addNote, setNote, setImage, setNotes, setUser, setMin }

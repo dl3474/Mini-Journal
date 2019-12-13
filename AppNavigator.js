@@ -12,7 +12,7 @@ const AppNavigator = createMaterialTopTabNavigator(
   {
     Input: {screen: Input},
     Calendar: {screen: Calendar},
-    Profile: {screen: Stats},
+    Stats: {screen: Stats},
     ' ': { screen: Notes},
 
 

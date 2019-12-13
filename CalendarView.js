@@ -14,19 +14,29 @@ class CalendarView extends React.Component {
     return (
       
       <View style={styles.container}>
-
-          
+          <Button
+            style={{margin: 20, alignSelf: 'flex-end'}}
+            title="View All Notes!"
+            onPress={() => this.props.navigation.navigate(' ')}
+        />
           <CalendarList
             horizontal={true}
             calendarWidth={320}
             hideArrows={false}
             //pagingEnabled={true}
-            
+
             current={this.props.reducer.currentDate.toString()}
             minDate={this.props.reducer.minDate.toString()} //first date of entry
-            maxDate={this.props.reducer.currentDate.toString()}
-            onDayPress={(day) => this.props.navigation.navigate(' ')}
-
+            maxDate={this.props.reducer.currentDate.toString()} //current date
+            onDayPress={(day) => this.props.navigation.navigate(' ')} //navigate to list view of the selected date
+            
+            /*markedDates={{
+              '2012-05-16': {selected: true, marked: true, selectedColor: 'blue'},
+              '2012-05-17': {marked: true},
+              '2012-05-18': {marked: true, dotColor: 'red', activeOpacity: 0},
+              '2012-05-19': {disabled: true, disableTouchEvent: true}
+            }} //mark the dates that have entries
+            */
             style={{
               borderWidth: 1,
               borderColor: 'gray',
@@ -34,18 +44,9 @@ class CalendarView extends React.Component {
               width: 321,
               alignSelf: 'center',
               overflow: 'hidden',
-              marginVertical: 20
+
             }}
           />
-
-        <View
-          style={{alignSelf: 'center' }}>
-          <Button
-            style={{margin: 20}}
-            title="View All Notes!"
-            onPress={() => this.props.navigation.navigate(' ')}
-          />
-        </View>
 
       </View>
     );

@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducer from './Reducer';
 import { connect } from 'react-redux';
-import { setUser, setNotes, setMin, setName } from './Actions';
+import { setUser, setNotes, setMin } from './Actions';
 import types from './Types';
 import { bindActionCreators } from 'redux';
 import { View } from 'react-native';
@@ -20,8 +20,6 @@ const boundSetUser = text => store.dispatch(setUser(text))
 const boundSetNotes = notes => store.dispatch(setNotes(notes))
 
 const boundSetMin = min => store.dispatch(setMin(min))
-
-const boundSetName = min => store.dispatch(setName(min))
 
 
 function formatTime(timestamp) {
@@ -56,7 +54,6 @@ auth.onAuthStateChanged((user) => {
   if (user) {
     console.log("logged in\n\n")
     boundSetUser(user.uid)
-    boundSetName(user.displayName)
 
     // Fetch items collection
     firestore.collection('notes')
@@ -84,15 +81,7 @@ auth.onAuthStateChanged((user) => {
 
             } else {
               if (prevDate === types.EMPTY_STRING){
-                let month = (timestamp.getMonth() + 1).toString()
-                let date = timestamp.getDate().toString()
-                if (month.length === 1) {
-                  month = '0' + month
-                }
-                if (date.length == 1) {
-                  date = '0' + date
-                }
-                boundSetMin(timestamp.getFullYear().toString() + '-' + month + '-' + date);
+                boundSetMin(date);
                 console.log(date)
               }
               prevDate = date;
@@ -124,7 +113,7 @@ let AuthGate = (props) => {
     console.log("not logged in\n\n")
     return (<Auth/>)
   } else {
-    console.log("authgate  jkk> logged in!!\n\n")
+    console.log("authgate---- logged in!!\n\n")
     return (<AppNavigator />) 
   }
 }
